@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    FILE *outputFile;
+    char inputText[1000];  // 用來存儲使用者輸入的文字
+
+    // 提示使用者輸入一段文字
+    printf("請輸入一段文字：\n");
+    fgets(inputText, sizeof(inputText), stdin);  // 讀取使用者輸入的文字
+
+    // 開啟 output.txt 進行寫入，若檔案不存在則會創建
+    outputFile = fopen("output.txt", "w");
+    if (outputFile == NULL) {
+        printf("無法開啟 output.txt\n");
+        return 1;
+    }
+
+    // 寫入第一遍內容
+    fputs(inputText, outputFile);  // 寫入使用者輸入的文字
+    //fputc('\n', outputFile);  // 在第一次內容後加一個換行符
+
+    // 寫入第二遍內容
+    fputs(inputText, outputFile);  // 寫入使用者輸入的文字
+    //fputc('\n', outputFile);  // 在第二次內容後加一個換行符
+
+    // 關閉檔案
+    fclose(outputFile);
+
+    printf("處理完成，文字已寫入 output.txt\n");
+
+    return 0;
+}
