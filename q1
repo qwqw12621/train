@@ -2,6 +2,101 @@
 #include <stdlib.h>
 #include <string.h>
 
+int main() {
+    FILE *inputFile, *outputFile;
+    char userInput[100]; // 用來存儲使用者每次輸入的數據
+    int count,j;
+    char ch;
+
+    // 開啟 input.txt 用於寫入數據
+    inputFile = fopen("input.txt", "w");
+    if (inputFile == NULL) {
+        printf("無法創建檔案 input.txt\n");
+        return 1;
+    }
+
+    // 提示使用者逐行輸入數據
+    printf("請逐行輸入數據（每行一組數字和字符，如 1T2A3b）：\n");
+    printf("輸入結束後輸入 'end' 結束輸入。\n");
+
+    // 讀取使用者逐行輸入並寫入 input.txt
+    while (1) {
+        // 使用 fgets 讀取一行輸入
+        fgets(userInput, sizeof(userInput), stdin);
+
+        // 如果用戶輸入 'end' 則停止輸入
+        if (strncmp(userInput, "end", 3) == 0) {
+            break;
+        }
+
+        // 將用戶輸入的內容寫入 input.txt
+        fprintf(inputFile, "%s", userInput);
+    }
+
+    // 關閉 input.txt 文件
+    fclose(inputFile);
+
+    // 開啟 input.txt 用於讀取數據
+    inputFile = fopen("input.txt", "r");
+    if (inputFile == NULL) {
+        printf("無法開啟檔案 input.txt\n");
+        return 1;
+    }
+
+    // 開啟 output.txt 寫入結果
+    outputFile = fopen("output.txt", "w");
+    if (outputFile == NULL) {
+        printf("無法開啟檔案 output.txt\n");
+        fclose(inputFile);
+        return 1;
+    }
+
+    // 處理每一行數據
+    while (fgets(userInput, sizeof(userInput), inputFile)) {
+        int i = 0;
+        
+        // 處理每一行的數據
+        while (userInput[i] != '\0' && userInput[i] != '\n') {
+            // 讀取數字
+            count = 0;
+            while (userInput[i] >= '0' && userInput[i] <= '9') {
+                count = count * 10 + (userInput[i] - '0'); // 解析數字
+                i++;
+            }
+
+            // 讀取字符
+            if (userInput[i] != '\0' && userInput[i] != '\n') {
+                ch = userInput[i];
+                i++;
+                // 重複字符並寫入 output.txt
+                for (j = 0; j < count; j++) {
+                    fprintf(outputFile, "%c", ch);
+                }
+            }
+        }
+        
+        // 換行，保證每筆結果在新的一行
+        fprintf(outputFile, "\n");
+    }
+
+    // 關閉檔案
+    fclose(inputFile);
+    fclose(outputFile);
+
+    printf("處理完畢，結果已儲存至 output.txt\n");
+
+    return 0;
+}
+
+
+
+
+
+//---------------------------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 // 函數：處理輸入行
 void process_input(const char *line, FILE *output) {
     int len = strlen(line);
