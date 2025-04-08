@@ -1,55 +1,75 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+// 函數：處理輸入行
+void process_input(const char *line, FILE *output) {
+    int len = strlen(line);
+    char result[1024] = "";  // 用來存儲處理後的結果
+    int i = 0;
+    int j;
+
+    while (i < len) {
+        // 當前字符是數字
+        if (line[i] >= '0' && line[i] <= '9') {
+            int repeat = line[i] - '0';  // 取得重複次數
+            i++;  // 移到下一個字符
+
+            // 當前字符是字母
+            if (i < len && ((line[i] >= 'A' && line[i] <= 'Z') || (line[i] >= 'a' && line[i] <= 'z'))) {
+                // 重複字母並加入結果
+                for (j = 0; j < repeat && strlen(result) < sizeof(result) - 1; j++) {
+                    strncat(result, &line[i], 1);
+                }
+            } else {
+                // 如果數字後不是字母，顯示錯誤訊息
+                fprintf(stderr, "Error: Expected a letter after digit at position %d\n", i);
+                return;  // 終止處理
+            }
+        }
+        i++;
+    }
+
+    // 寫入結果到輸出檔案
+    fprintf(output, "%s\n", result);
+}
+
+// 函數：主程式
 int main() {
-    FILE *inputFile, *outputFile;
-    char line[256]; // 假設每行最大為 255 字元
+    char line[1024];  // 用來存儲每一行的輸入
 
-    // 開啟 input.txt 以寫入
-    inputFile = fopen("input.txt", "w");
-    if (inputFile == NULL) {
-        printf("無法創建 input.txt 檔案！\n");
-        return 1; // 如果開啟檔案失敗，程式退出
-    }
-
-    // 提示用戶輸入文字
-    printf("請輸入一些文字（輸入完畢後按 Enter，輸入結束後按 Ctrl+Z / Ctrl+D）：\n");
-
-    // 讀取用戶輸入並寫入到 input.txt
-    /*while (fgets(line, sizeof(line), stdin) != NULL) {
-        fputs(line, inputFile);
-    }*/
-	fgets(line, sizeof(line), stdin);
-	fputs(line, inputFile);
-    // 關閉 input.txt 檔案
-    fclose(inputFile);
-
-    // 重新開啟檔案以讀取 input.txt
-    inputFile = fopen("input.txt", "r");
-    if (inputFile == NULL) {
-        printf("無法打開 input.txt 檔案！\n");
-        return 1; // 如果開啟檔案失敗，程式退出
-    }
-
-    // 開啟 output.txt 以寫入，如果檔案不存在會創建它
-    outputFile = fopen("output.txt", "w");
-    if (outputFile == NULL) {
-        printf("無法打開 output.txt 檔案！\n");
-        fclose(inputFile); // 確保關閉 inputFile
+    // 嘗試以寫入模式打開 output.txt 文件，如果文件不存在，會自動創建
+    FILE *output = fopen("output.txt", "w");
+    if (output == NULL) {
+        perror("Error opening output file");
         return 1;
     }
 
-    // 讀取 input.txt 的內容，並將其寫入 output.txt 兩次，使用換行分隔
-    while (fgets(line, sizeof(line), inputFile) != NULL) {
-        fputs(line, outputFile); // 寫入第一次
-        //fputs("\n", outputFile);  // 加入換行
-        fputs(line, outputFile);  // 寫入第二次
-        //fputs("\n", outputFile);  // 加入換行
+    printf("請輸入資料，按 Enter 結束每行：\n");
+
+    // 讀取每一行，直到用戶輸入結束
+    while (1) {
+        printf("請輸入一行（或輸入 'exit' 結束）：");
+        if (fgets(line, sizeof(line), stdin) == NULL) {
+            break;  // 終止循環
+        }
+
+        // 去掉行尾的換行符號
+        line[strcspn(line, "\n")] = '\0';
+
+        // 如果用戶輸入 "exit"，則結束程式
+        if (strcmp(line, "exit") == 0) {
+            break;
+        }
+
+        // 處理輸入並將結果寫入輸出檔案
+        process_input(line, output);
     }
 
-    // 關閉檔案
-    fclose(inputFile);
-    fclose(outputFile);
+    // 關閉輸出文件
+    fclose(output);
 
-    printf("檔案處理完成。\n");
+    printf("處理完成，結果已寫入 output.txt\n");
+
     return 0;
 }
