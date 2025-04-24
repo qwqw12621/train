@@ -1,3 +1,5 @@
+Error at 18, 12 (393): Invalid mnemonic 'JSR'.
+Error at 66, 9 (1331): Undefined symbol 'A'.
 		JSUB	SUB1
 		JSUB	NEWLINE
 		JSUB	SUB2
