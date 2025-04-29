@@ -126,7 +126,7 @@ int ASM_token(char *buf)
 	return(len);
 }
 
-
+/*
 int main(int argc, char *argv[])
 {
 	int			i, c;
@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 			ASM_close();
 		}
 	}
-}
+}*/
 
 
 
