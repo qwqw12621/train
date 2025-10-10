@@ -1,0 +1,23 @@
+2025-10-10 09:51:43.861 [main] INFO  org.example.App - ---- Start normal flow ----
+2025-10-10 09:51:43.877 [main] INFO  org.example.Restaurant - Restaurant PastaHouse received accept request for order 2f528781-44f8-402b-9b49-9536092e4a7a
+2025-10-10 09:51:43.878 [main] INFO  org.example.Restaurant - Restaurant PastaHouse accepted order 2f528781-44f8-402b-9b49-9536092e4a7a (status -> ACCEPTED)
+2025-10-10 09:51:43.878 [main] INFO  org.example.DeliveryService - DeliveryService try pickup order 2f528781-44f8-402b-9b49-9536092e4a7a
+2025-10-10 09:51:43.879 [main] INFO  org.example.DeliveryService - Order 2f528781-44f8-402b-9b49-9536092e4a7a picked up by delivery.
+2025-10-10 09:51:43.879 [main] INFO  org.example.DeliveryService - Delivering order 2f528781-44f8-402b-9b49-9536092e4a7a
+2025-10-10 09:51:43.880 [main] INFO  org.example.DeliveryService - Order 2f528781-44f8-402b-9b49-9536092e4a7a delivered to Alice
+2025-10-10 09:51:43.880 [main] INFO  org.example.App - Finished normal flow for order 2f528781-44f8-402b-9b49-9536092e4a7a
+2025-10-10 09:51:43.881 [main] INFO  org.example.App - ---- Start closed-restaurant flow ----
+2025-10-10 09:51:43.881 [main] INFO  org.example.Restaurant - Restaurant SushiTime received accept request for order 69c8da17-b2e3-41ae-89ac-30857c62b7cf
+2025-10-10 09:51:43.882 [main] WARN  org.example.Restaurant - Restaurant SushiTime is closed — cannot accept order 69c8da17-b2e3-41ae-89ac-30857c62b7cf
+2025-10-10 09:51:43.883 [main] WARN  org.example.App - Order cannot be accepted because restaurant closed: Restaurant SushiTime is closed
+2025-10-10 09:51:43.884 [main] INFO  org.example.App - ---- Start mismatch flow ----
+2025-10-10 09:51:43.885 [main] INFO  org.example.Restaurant - Restaurant PastaHouse received accept request for order b4ffecc9-b877-4778-b8c5-9cfe136f8692
+2025-10-10 09:51:43.886 [main] WARN  org.example.Restaurant - Order b4ffecc9-b877-4778-b8c5-9cfe136f8692 restaurant name mismatch: expected=PastaHouse, actual=OtherRestaurant
+2025-10-10 09:51:43.886 [main] WARN  org.example.App - Order rejected due to mismatch: Order restaurant mismatch
+2025-10-10 09:51:43.887 [main] INFO  org.example.App - ---- Start runtime error (null) flow ----
+2025-10-10 09:51:43.890 [main] ERROR org.example.App - Caught runtime exception: Cannot invoke "org.example.Order.getId()" because "order" is null
+java.lang.NullPointerException: Cannot invoke "org.example.Order.getId()" because "order" is null
+	at org.example.DeliveryService.pickupOrder(DeliveryService.java:10)
+	at org.example.App.main(App.java:56)
+
+Process finished with exit code 0
