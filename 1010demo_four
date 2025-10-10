@@ -1,0 +1,59 @@
+2025-10-10 12:16:30.153 [main] INFO  org.example.App - ---- NORMAL FLOW ----
+2025-10-10 12:16:30.170 [main] INFO  org.example.Restaurant - Restaurant PastaHouse received accept request for order 382b0a99-6236-4e29-a002-7d9d7798b078
+2025-10-10 12:16:30.171 [main] INFO  org.example.Restaurant - Restaurant PastaHouse accepted order 382b0a99-6236-4e29-a002-7d9d7798b078 (status -> ACCEPTED)
+2025-10-10 12:16:30.173 [main] INFO  org.example.OrderService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 status ACCEPTED -> PREPARING
+2025-10-10 12:16:30.175 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order 382b0a99-6236-4e29-a002-7d9d7798b078 status ACCEPTED -> PREPARING (traceId=fb3f101a-8c75-4598-adf8-8ac49cdfb314)
+2025-10-10 12:16:30.177 [main] INFO  org.example.Delay - Delay start: Cooking (1000 ms)
+2025-10-10 12:16:31.185 [main] INFO  org.example.Delay - Delay end  : Cooking
+2025-10-10 12:16:31.185 [main] INFO  org.example.OrderService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 status PREPARING -> READY_FOR_PICKUP
+2025-10-10 12:16:31.186 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order 382b0a99-6236-4e29-a002-7d9d7798b078 status PREPARING -> READY_FOR_PICKUP (traceId=fb3f101a-8c75-4598-adf8-8ac49cdfb314)
+2025-10-10 12:16:31.186 [main] INFO  org.example.DeliveryService - DeliveryService try pickup order 382b0a99-6236-4e29-a002-7d9d7798b078
+2025-10-10 12:16:31.188 [main] INFO  org.example.OrderService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 status READY_FOR_PICKUP -> PICKED_UP
+2025-10-10 12:16:31.188 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order 382b0a99-6236-4e29-a002-7d9d7798b078 status READY_FOR_PICKUP -> PICKED_UP (traceId=fb3f101a-8c75-4598-adf8-8ac49cdfb314)
+2025-10-10 12:16:31.189 [main] INFO  org.example.DeliveryService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 picked up by delivery.
+2025-10-10 12:16:31.189 [main] INFO  org.example.Delay - Delay start: Delivery (800 ms)
+2025-10-10 12:16:32.004 [main] INFO  org.example.Delay - Delay end  : Delivery
+2025-10-10 12:16:32.004 [main] INFO  org.example.DeliveryService - Delivering order 382b0a99-6236-4e29-a002-7d9d7798b078
+2025-10-10 12:16:32.005 [main] INFO  org.example.OrderService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 status PICKED_UP -> DELIVERED
+2025-10-10 12:16:32.005 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order 382b0a99-6236-4e29-a002-7d9d7798b078 status PICKED_UP -> DELIVERED (traceId=fb3f101a-8c75-4598-adf8-8ac49cdfb314)
+2025-10-10 12:16:32.006 [main] INFO  org.example.DeliveryService - Order 382b0a99-6236-4e29-a002-7d9d7798b078 delivered to Alice
+2025-10-10 12:16:32.007 [main] INFO  org.example.App - ---- CANCEL FLOW ----
+2025-10-10 12:16:32.007 [main] INFO  org.example.Restaurant - Restaurant PastaHouse received accept request for order cc714286-bc6a-4637-a4d7-25ee042dbe72
+2025-10-10 12:16:32.007 [main] INFO  org.example.Restaurant - Restaurant PastaHouse accepted order cc714286-bc6a-4637-a4d7-25ee042dbe72 (status -> ACCEPTED)
+2025-10-10 12:16:32.007 [main] INFO  org.example.OrderService - Order cc714286-bc6a-4637-a4d7-25ee042dbe72 status ACCEPTED -> PREPARING
+2025-10-10 12:16:32.008 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order cc714286-bc6a-4637-a4d7-25ee042dbe72 status ACCEPTED -> PREPARING (traceId=a4a5cf78-3ec7-46ca-868d-abd2cbac2f4e)
+2025-10-10 12:16:32.008 [main] WARN  org.example.OrderService - Order cc714286-bc6a-4637-a4d7-25ee042dbe72 cancelled (from=PREPARING): Customer changed mind
+2025-10-10 12:16:32.008 [main] INFO  org.example.events.listeners.LoggingListener - [Event] Order cc714286-bc6a-4637-a4d7-25ee042dbe72 status PREPARING -> CANCELLED (traceId=a4a5cf78-3ec7-46ca-868d-abd2cbac2f4e)
+2025-10-10 12:16:32.009 [main] INFO  org.example.App - ---- RUNTIME ERROR EXAMPLE ----
+2025-10-10 12:16:32.009 [main] ERROR org.example.DeliveryService - pickupOrder called with null order
+2025-10-10 12:16:32.009 [main] ERROR org.example.App - Runtime error: Order is null
+org.example.InvalidOrderRuntimeException: Order is null
+	at org.example.DeliveryService.pickupOrder(DeliveryService.java:13)
+	at org.example.App.main(App.java:71)
+2025-10-10 12:16:32.012 [main] INFO  org.example.Delay - Delay start: Wait for scheduled report (20000 ms)
+2025-10-10 12:16:35.026 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - ===== Daily Report @ 12:16:35.026171400 =====
+2025-10-10 12:16:35.028 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PREPARING: 2
+2025-10-10 12:16:35.028 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PENDING: 0
+2025-10-10 12:16:35.029 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status CANCELLED: 1
+2025-10-10 12:16:35.029 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status ACCEPTED: 0
+2025-10-10 12:16:35.029 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status READY_FOR_PICKUP: 1
+2025-10-10 12:16:35.029 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PICKED_UP: 1
+2025-10-10 12:16:35.030 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status DELIVERED: 1
+2025-10-10 12:16:35.030 [pool-2-thread-1] INFO  org.example.ExceptionManager - === Exception Summary ===
+2025-10-10 12:16:35.031 [pool-2-thread-1] INFO  org.example.ExceptionManager - InvalidOrderRuntimeException: 1
+2025-10-10 12:16:35.031 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - ===== End of Daily Report =====
+2025-10-10 12:16:50.012 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - ===== Daily Report @ 12:16:50.012233 =====
+2025-10-10 12:16:50.012 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PREPARING: 2
+2025-10-10 12:16:50.013 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PENDING: 0
+2025-10-10 12:16:50.013 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status CANCELLED: 1
+2025-10-10 12:16:50.013 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status ACCEPTED: 0
+2025-10-10 12:16:50.013 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status READY_FOR_PICKUP: 1
+2025-10-10 12:16:50.014 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status PICKED_UP: 1
+2025-10-10 12:16:50.014 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - Status DELIVERED: 1
+2025-10-10 12:16:50.014 [pool-2-thread-1] INFO  org.example.ExceptionManager - === Exception Summary ===
+2025-10-10 12:16:50.014 [pool-2-thread-1] INFO  org.example.ExceptionManager - InvalidOrderRuntimeException: 1
+2025-10-10 12:16:50.015 [pool-2-thread-1] INFO  org.example.DailyReportScheduler - ===== End of Daily Report =====
+2025-10-10 12:16:52.027 [main] INFO  org.example.Delay - Delay end  : Wait for scheduled report
+2025-10-10 12:16:52.028 [main] INFO  org.example.App - App finished.
+
+Process finished with exit code 0
