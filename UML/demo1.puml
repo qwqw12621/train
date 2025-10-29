@@ -1,0 +1,79 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F9FAFF
+  BorderColor #4B6BFB
+}
+skinparam actorStyle awesome
+
+rectangle "FCU智慧門禁與出入管理系統" as 系統 {
+  (掃描進出) as UC_掃描
+  (驗證身分) as UC_驗證
+  (記錄出入紀錄) as UC_紀錄
+  (觸發異常警報) as UC_警報
+  (申請訪客通行證) as UC_訪客證
+  (管理門禁權限) as UC_權限
+  (查詢特定人員出入紀錄) as UC_查詢
+  (匯出報表) as UC_報表
+  (發送通知) as UC_通知
+  (與課程系統同步) as UC_同步
+  (註冊生物辨識) as UC_註冊生物
+  (發行憑證) as UC_發行
+  (撤銷憑證) as UC_撤銷
+  (安全監控儀表板) as UC_儀表板
+  (管理設備/讀取器) as UC_設備
+}
+
+actor 使用者
+actor 學生
+actor 教職員
+actor 訪客
+actor "校安人員" as 校安
+actor 系統管理員
+actor "校園系統" as 校園系統
+
+使用者 <|-- 學生
+使用者 <|-- 教職員
+使用者 <|-- 訪客
+
+' 角色關聯
+學生 --> UC_掃描
+教職員 --> UC_掃描
+訪客 --> UC_掃描
+學生 --> UC_訪客證
+教職員 --> UC_訪客證
+訪客 --> UC_訪客證 : 自助登記/報到
+
+校安 --> UC_儀表板
+校安 --> UC_查詢
+校安 --> UC_通知
+
+系統管理員 --> UC_權限
+系統管理員 --> UC_報表
+系統管理員 --> UC_發行
+系統管理員 --> UC_撤銷
+系統管理員 --> UC_設備
+系統管理員 --> UC_註冊生物
+
+校園系統 --> UC_同步
+
+' include / extend
+UC_掃描 --> UC_驗證 : <<include>>
+UC_掃描 --> UC_紀錄 : <<include>>
+UC_訪客證 --> UC_驗證 : <<include>>
+UC_驗證 <-- UC_警報 : <<extend>>\n（失敗/異常時）
+UC_權限 --> UC_通知 : <<include>>\n（權限變更時）
+UC_儀表板 --> UC_警報 : <<include>>
+UC_查詢 --> UC_報表 : <<extend>>\n（可選擇匯出）
+UC_同步 --> UC_權限 : <<extend>>\n（依據課表動態調整輸出）
+
+note right of UC_同步
+與「校園系統」相互參照課程/教室兩者的使用資料，
+以進行自動調整於某時段與場域的門禁開放。
+end note
+
+note bottom of UC_驗證
+多因子：學生證/職員證、手機NFC、臉部辨識。
+end note
+@enduml
