@@ -1,0 +1,279 @@
+@startuml
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+  ArrowColor #666666
+}
+
+' ===== 使用者與角色 =====
+abstract class 使用者 {
+  +編號: UUID
+  +姓名: String
+  +角色: String
+  +帳號狀態: 帳號狀態
+  +憑證清單: List<憑證>
+  +註冊生物辨識(臉部模板: 臉部模板): void
+  +綁定憑證(憑證: 憑證): void
+}
+
+class 學生 extends 使用者 {
+  +學號: String
+  +系所: String
+  +修課列表: List<課程參照>
+  +取得當下可進入門點(時間: DateTime): List<門禁點>
+  +是否修讀(課號: String): boolean
+}
+
+class 教職員 extends 使用者 {
+  +員編: String
+  +單位: String
+  +職稱: String
+  +指派授課(課: 課程參照): void
+  +審核訪客證(證: 訪客通行證): void
+}
+
+class 訪客 extends 使用者 {
+  +訪客代碼: String
+  +受邀人編號: UUID
+  +有效期限: DateTime
+  +申請通行證(起: DateTime, 迄: DateTime): 訪客通行證
+  +現場簽到(證: 訪客通行證): boolean
+}
+
+class 校安人員 extends 使用者 {
+  +警衛編號: String
+  +值班中: boolean
+  +確認警報(警報: 警報): void
+  +派遣巡邏(區域: String): void
+}
+
+class 系統管理員 extends 使用者 {
+  +管理層級: int
+  +最後登入IP: String
+  +系統權限: Set<String>
+  +建立政策(政策: 門禁政策): void
+  +撤銷憑證(憑證: 憑證): void
+}
+
+' ===== 憑證與驗證 =====
+abstract class 憑證 {
+  +憑證ID: UUID
+  +狀態: 憑證狀態
+  +發行時間: DateTime
+  +驗證(輸入: any): boolean
+  +停用(): void
+}
+
+class 卡片憑證 extends 憑證 {
+  +卡號: String
+  +UID: String
+  +技術類型: String
+  +由讀取器解析(資料: bytes): boolean
+  +重置UID(): void
+}
+
+class NFC憑證 extends 憑證 {
+  +裝置ID: String
+  +公鑰: String
+  +簽章演算法: String
+  +驗簽(隨機數: bytes, 簽章: bytes): boolean
+  +綁定裝置(裝置ID: String): void
+}
+
+class 臉部模板 extends 憑證 {
+  +模板ID: String
+  +活體等級: int
+  +辨識率: float
+  +比對(影像: Image): float
+  +更新模板(影像: Image): void
+}
+
+使用者 "1" o-- "多個" 憑證 : 擁有
+
+' ===== 場域與設備 =====
+class 建築物 {
+  +建物編號: String
+  +名稱: String
+  +區域群組: List<String>
+  +新增門禁點(門點: 門禁點): void
+  +取得門禁點(): List<門禁點>
+}
+
+class 門禁點 {
+  +門點ID: String
+  +位置: String
+  +方向: 進出方向
+  +政策ID: String
+  +掃描(人: 使用者, 憑證: 憑證): 通行決策
+  +設定政策(政策: 門禁政策): void
+}
+
+class 讀取器 {
+  +設備ID: String
+  +類型: 讀取器類型
+  +韌體版本: String
+  +讀取(): bytes
+  +健康檢查(): 設備狀態
+}
+
+class 攝影機 {
+  +設備ID: String
+  +解析度: String
+  +串流URL: String
+  +擷取臉部(): Image
+  +活體偵測(): float
+}
+
+class 門禁控制器 {
+  +控制器ID: String
+  +工作模式: String
+  +開啟(秒數: int): void
+  +上鎖(): void
+}
+
+建築物 "1" *-- "多個" 門禁點 : 組合
+門禁點 "1" *-- "1" 讀取器 : 組合
+門禁點 "0..1" *-- "1" 攝影機 : 組合
+門禁點 "1" o-- "1" 門禁控制器 : 聚合
+
+' ===== 政策與課表 =====
+class 門禁政策 {
+  +政策ID: String
+  +名稱: String
+  +時段規則: List<時段規則>
+  +允許角色: Set<String>
+  +是否允許(人: 使用者, 時間: DateTime): boolean
+  +附加到(門點: 門禁點): void
+}
+
+class 課程參照 {
+  +課號: String
+  +教室: String
+  +開始: DateTime
+  +結束: DateTime
+  +是否進行中(時間: DateTime): boolean
+  +是否重疊(起: DateTime, 迄: DateTime): boolean
+}
+
+' ===== 記錄、訪客證、警報 =====
+class 出入紀錄 {
+  +紀錄ID: UUID
+  +使用者ID: UUID
+  +門點ID: String
+  +時間: DateTime
+  +決策: 通行決策
+  +寫入(): void
+  +轉為CSV(): String
+}
+
+class 訪客通行證 {
+  +通行證ID: String
+  +訪客ID: UUID
+  +有效起: DateTime
+  +有效迄: DateTime
+  +啟用(): void
+  +失效(): void
+}
+
+class 警報 {
+  +警報ID: UUID
+  +類型: 警報類型
+  +嚴重程度: int
+  +建立時間: DateTime
+  +升級(): void
+  +結案(說明: String): void
+}
+
+出入紀錄 --> 使用者 : 以使用者ID關聯
+出入紀錄 --> 門禁點 : 以門禁ID關聯
+警報 --> 門禁點
+警報 --> 使用者 : （可選：對象）
+
+' ===== 服務 =====
+class 驗證服務 {
+  +風險引擎: 風險引擎
+  +驗證(人: 使用者, 輸入: Map<String,any>): 驗證結果
+  +需要進階驗證(人: 使用者): boolean
+}
+
+class 門禁控制服務 {
+  +判斷通行(人: 使用者, 門點: 門禁點, 憑證: 憑證): 通行決策
+  +執行(門點: 門禁點, 決策: 通行決策): void
+}
+
+class 通知服務 {
+  +通道: Set<String>
+  +通知(對象: List<使用者>, 訊息: String): void
+  +廣播(角色: String, 訊息: String): void
+}
+
+class 警報服務 {
+  +規則: List<警報規則>
+  +建立(類型: 警報類型, 情境: Map): 警報
+  +自動升級(警報: 警報): void
+}
+
+class 報表服務 {
+  +格式: Set<String>
+  +匯出紀錄(區間: 日期區間, 格式: String): 檔案
+  +產生指標(區間: 日期區間): 報表
+}
+
+class 課表同步服務 {
+  +最後同步時間: DateTime
+  +來源: String
+  +自校園系統同步(): int
+  +查詢個人課程(人ID: UUID, 時間: DateTime): List<課程>
+}
+
+門禁控制服務 --> 驗證服務 : 使用
+門禁控制服務 --> 出入紀錄 : 寫入
+警報服務 --> 通知服務 : 通知
+課表同步服務 ..> 課程參照 : 回傳
+課表同步服務 ..> 門禁政策 : 動態調整
+驗證服務 ..> 憑證 : 驗證
+通知服務 ..> 使用者 : 目標
+
+' ===== 列舉（逐行，避免同一行用分號）=====
+enum 通行決策 {
+  允許
+  拒絕
+  人工核查
+}
+
+enum 憑證狀態 {
+  啟用
+  停用
+  已撤銷
+}
+
+enum 進出方向 {
+  進
+  出
+}
+
+enum 讀取器類型 {
+  證件卡片
+  手機NFC
+  臉部
+}
+
+enum 設備狀態 {
+  正常
+  警告
+  故障
+}
+
+enum 警報類型 {
+  驗證失敗
+  尾隨
+  設備異常
+}
+
+enum 帳號狀態 {
+  啟用
+  暫停中止
+  已封存
+}
+
+@enduml
