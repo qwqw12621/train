@@ -1,8 +1,2 @@
-PS C:\Users\user\IdeaProjects\midterm> mvn -q -DskipTests verify
-mvn : 無法辨識 'mvn' 詞彙是否為 Cmdlet、函數、指令檔或可執行程式的名稱。請檢查名稱拼字是否正確，如果包含路徑的話，請確認路徑是否正確，然後再試一次。
-位於 線路:1 字元:1
-+ mvn -q -DskipTests verify
-+ ~~~
-    + CategoryInfo          : ObjectNotFound: (mvn:String) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
- 
+PMD 7.3.0 has found 58 violations. For more details see: C:\Users\user\IdeaProjects\midterm\target\pmd.xml
+
