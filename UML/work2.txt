@@ -1,10 +1,9 @@
-C:\Users\user\Desktop\114_UML>work22
 
 [a]Deposit [b]Select [c]Cancel [d]Purchase [e]Abort [x]Exit
 a
 
 [Deposit Money] B: Bill, C: Coin, Others: Exit
-Input (B/C): B
+Input (B/C): b
 Insert bill (1,5,10,20) or 0 to stop
 20
 0
@@ -12,15 +11,38 @@ Input (B/C): c
 Insert coin (5,10,25) or 0 to stop
 25
 0
-Input (B/C): b
-Insert bill (1,5,10,20) or 0 to stop
-A
-Invalid bill ignored
-c
-Invalid bill ignored
+Input (B/C): x
+
+---- Transaction Status ----
+Deposit: $20.25
+Total Price: $0.00
+----------------------------
+
+[a]Deposit [b]Select [c]Cancel [d]Purchase [e]Abort [x]Exit
+b
+
+Select product A~H, Q to quit
+a
 f
-Invalid bill ignored
 q
-Invalid bill ignored
+
+---- Transaction Status ----
+Deposit: $20.25
+Total Price: $2.65
+----------------------------
+
+[a]Deposit [b]Select [c]Cancel [d]Purchase [e]Abort [x]Exit
 d
-Invalid bill ignored
+
+Dispensing products...
+A Coca Cola x 1
+F Oreo Cookies x 1
+Change Returned:
+25瞽 x 70
+10瞽 x 1
+5瞽  x 0
+
+---- Transaction Status ----
+Deposit: $0.00
+Total Price: $0.00
+----------------------------
