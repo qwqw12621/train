@@ -1,0 +1,54 @@
+@startuml
+
+class Product {
+    - code: char
+    - name: String
+    - priceCents: int
+    --
+    + getCode(): char
+    + getName(): String
+    + getPriceCents(): int
+}
+
+class SelectedItem {
+    - product: Product
+    - quantity: int
+    --
+    + getProduct(): Product
+    + getQuantity(): int
+    + increase(): void
+    + decrease(): void
+}
+
+class VendingMachine {
+    - products: Map<char, Product>
+    - selectedItems: Map<char, SelectedItem>
+    - totalDepositCents: int
+    --
+    - bill1Count: int
+    - bill5Count: int
+    - bill10Count: int
+    - bill20Count: int
+    --
+    - coin5Count: int
+    - coin10Count: int
+    - coin25Count: int
+    --
+    + handleDeposit(scanner)
+    + handleSelectProducts(scanner)
+    + handleCancelProduct(scanner)
+    + handlePurchase(scanner)
+    + handleAbort()
+    + showStatus()
+    --
+    - getTotalPriceCents(): int
+    - returnChange(changeCents: int)
+    - resetTransaction(): void
+}
+
+' 關聯（composition）
+VendingMachine *-- Product : manages >
+VendingMachine *-- SelectedItem : tracks >
+
+SelectedItem --> Product : refers >
+@enduml

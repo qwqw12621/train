@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+actor Customer as C
+
+rectangle "Vending Machine System" {
+
+    usecase "Deposit Money\n(投入金額)" as UC_Deposit
+    usecase "Select Products\n(選擇商品)" as UC_Select
+    usecase "Cancel Product\n(取消商品)" as UC_Cancel
+    usecase "Purchase Products\n(購買商品)" as UC_Purchase
+    usecase "Abort Transaction\n(放棄交易)" as UC_Abort
+
+}
+
+C --> UC_Deposit
+C --> UC_Select
+C --> UC_Cancel
+C --> UC_Purchase
+C --> UC_Abort
+@enduml
