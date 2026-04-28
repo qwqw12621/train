@@ -1,24 +1,20 @@
-jovyan@vm-9297lsoy03g0:~$ ./judge_linux main41.py
-[資訊] 使用 Python：/opt/conda/bin/python
-[資訊] 解答檔：/home/jovyan/main42.py
-[資訊] 題數：6
+jovyan@vm-j4wlboxamd59:~$ bash test_timing.sh try.py 120
+═══════════════════════════════════════════
+  測資：n=128, L=2500  (輸出元素 ~5003 位)
+  程式：main.py
+  時間限制：120s
+═══════════════════════════════════════════
+Python：Python 3.11.10
+test_timing.sh: line 34: bc: command not found
 
-  題 1:  AC    0.02s  10/10
-  題 2:  AC    0.02s  20/20
-  題 3:  RE    2.62s  0/20
-  題 4:  RE    2.95s  0/10
-  題 5:  RE    3.25s  0/20
-  題 6:  RE    3.41s  0/20
+  ✓ AC（答案正確）
+    執行時間：s
+test_timing.sh: line 60: bc: command not found
+test_timing.sh: line 62: bc: command not found
+test_timing.sh: line 62: bc: command not found
 
-評分結果
-+----+----+--------+----+----+
-| 題號 | 狀態 | 時間(秒) | 得分 | 配分 |
-+----+----+--------+----+----+
-| 1  | AC |   0.02 | 10 | 10 |
-| 2  | AC |   0.02 | 20 | 20 |
-| 3  | RE |   2.62 | 0  | 20 |
-| 4  | RE |   2.95 | 0  | 10 |
-| 5  | RE |   3.25 | 0  | 20 |
-| 6  | RE |   3.41 | 0  | 20 |
-+----+----+--------+----+----+
-總分：30 / 100    通過：2 / 6
+jovyan@vm-j4wlboxamd59:~$ time python3 try.py < hard_test.in > /dev/null
+
+real    1m22.423s
+user    1m21.635s
+sys     0m0.648s
