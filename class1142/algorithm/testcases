@@ -1,20 +1,12 @@
-我在Jupyter執行時出現
-jovyan@vm-j4wlboxamd59:~$ diff my_out.txt hard_test.out $$ echo "AC" || echo "WA"
-diff: extra operand '135'
-diff: Try 'diff --help' for more information.
-WA
-jovyan@vm-j4wlboxamd59:~$ time python3 main51.py < hard_test.in > my_out
-Traceback (most recent call last):
-  File "/home/jovyan/main51.py", line 213, in <module>
-    main()
-  File "/home/jovyan/main51.py", line 193, in main
-    B.append([int(data[pos + j]) for j in range(n)])
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jovyan/main51.py", line 193, in <listcomp>
-    B.append([int(data[pos + j]) for j in range(n)])
-                  ~~~~^^^^^^^^^
-IndexError: list index out of range
+幫我分析
+jovyan@vm-j4wlboxamd59:~$ time python3 try.py < hard_test.in > my_out.txt
 
-real    0m1.676s
-user    0m1.529s
-sys     0m0.139s
+real    1m55.728s
+user    1m54.794s
+sys     0m0.837s
+
+jovyan@vm-j4wlboxamd59:~$ time python3 main.py < hard_test.in > my_out.txt
+
+real    1m33.025s
+user    1m32.539s
+sys     0m0.450s
