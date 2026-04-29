@@ -1,13 +1,26 @@
 https://drive.google.com/drive/folders/12aHT3Z1FtY6euKfgUMWISfEBo0aCM7Is?usp=sharing
 幫我分析
-jovyan@vm-j4wlboxamd59:~$ time python3 try.py < hard_test.in > my_out.txt
+jovyan@vm-j4wlboxamd59:~$ ./judge_linux main.py 
+[資訊] 使用 Python：/opt/conda/bin/python
+[資訊] 解答檔：/home/jovyan/main.py
+[資訊] 題數：6
 
-real    1m55.728s
-user    1m54.794s
-sys     0m0.837s
+  題 1:  AC    0.02s  10/10
+  題 2:  AC    0.02s  20/20
+  題 3:  AC   98.58s  20/20
+  題 4:  AC  109.13s  10/10
+  題 5:  AC  117.48s  20/20
+  題 6: TLE  120.07s  0/20
 
-jovyan@vm-j4wlboxamd59:~$ time python3 main.py < hard_test.in > my_out.txt
-
-real    1m33.025s
-user    1m32.539s
-sys     0m0.450s
+評分結果
++----+-----+--------+----+----+
+| 題號 | 狀態 | 時間(秒) | 得分 | 配分 |
++----+-----+--------+----+----+
+| 1  | AC  |   0.02 | 10 | 10 |
+| 2  | AC  |   0.02 | 20 | 20 |
+| 3  | AC  |  98.58 | 20 | 20 |
+| 4  | AC  | 109.13 | 10 | 10 |
+| 5  | AC  | 117.48 | 20 | 20 |
+| 6  | TLE | 120.07 | 0  | 20 |
++----+-----+--------+----+----+
+總分：80 / 100    通過：5 / 6
