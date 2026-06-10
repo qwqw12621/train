@@ -1,17 +1,11 @@
-jovyan@vm-j4wlboxamd59:~$ python verify.py greedy_opt.py D0000000.in 8 D0000000.out 
-Traceback (most recent call last):
-  File "/home/jovyan/verify.py", line 46, in <module>
-    main()
-  File "/home/jovyan/verify.py", line 7, in main
-    d = open(infile, 'rb').read().split(); N = int(d[0]); T = int(d[1]); pos = 2
-                                               ^^^^^^^^^
-ValueError: invalid literal for int() with base 10: b'import'
-jovyan@vm-j4wlboxamd59:~$ python verify.py greedy_opt.py D0000000_tight.in 8 D0000000_tight.out 
-Traceback (most recent call last):
-  File "/home/jovyan/verify.py", line 46, in <module>
-    main()
-  File "/home/jovyan/verify.py", line 7, in main
-    d = open(infile, 'rb').read().split(); N = int(d[0]); T = int(d[1]); pos = 2
-                                               ^^^^^^^^^
-ValueError: invalid literal for int() with base 10: b'import'
-jovyan@vm-j4wlboxamd59:~$ 
+jovyan@vm-j4wlboxamd59:~$ ./run_test.sh greedy.py D0000000.in 8 D0000000.out 
+執行 greedy.py  測資 D0000000.in  限制 8s
+→ 完成，耗時 1.89s ✅
+→ 宣告獎勵：678751
+→ 最佳解為 1015813（此程式合法但非最佳）
+
+jovyan@vm-j4wlboxamd59:~$ ./run_test.sh greedy_opt.py D0000000_tight.in 8 D0000000_tight.out 
+執行 greedy_opt.py  測資 D0000000_tight.in  限制 8s
+→ 完成，耗時 0.03s ✅
+→ 宣告獎勵：147
+→ 最佳解為 201（此程式合法但非最佳）
