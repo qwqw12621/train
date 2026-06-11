@@ -1,4 +1,4 @@
-jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux main_greedy.py 
+jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux greedy_course.py 
 請選擇要以哪種方法評分：
   1) greedy
   2) backtrack
@@ -7,17 +7,17 @@ jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux main_greedy.py
 輸入編號 [1-4]：1
 下載 greedy 測資 [████████████████████████████] 100%  6/6
 
-=== main_greedy.py (greedy) ===
+=== greedy_course.py (greedy) ===
   狀態  測資        判定    耗時     CPU      最佳解
   ✓     測資1       AC      0.02s    0.00s    ✓
   ✓     測資2       AC      0.02s    0.00s    ✓
-  ✓     測資3       AC      0.50s    0.49s    ✗
-  ✓     測資4       AC      0.52s    0.50s    ✗
-  ✓     測資5       AC      0.63s    0.59s    ✗
-  ✓     測資6       AC      0.59s    0.58s    ✗
+  ✓     測資3       AC      0.58s    0.54s    ✗
+  ✓     測資4       AC      0.59s    0.57s    ✗
+  ✓     測資5       AC      0.80s    0.77s    ✗
+  ✓     測資6       AC      0.74s    0.72s    ✗
 
 === 自我檢測結果 ===
-  main_greedy.py (greedy)          6/6  通過
+  greedy_course.py (greedy)          6/6  通過
 
 
 
