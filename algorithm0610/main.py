@@ -1,3 +1,26 @@
+jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux main_greedy.py 
+請選擇要以哪種方法評分：
+  1) greedy
+  2) backtrack
+  3) bnb
+  4) dp
+輸入編號 [1-4]：1
+下載 greedy 測資 [████████████████████████████] 100%  6/6
+
+=== main_greedy.py (greedy) ===
+  狀態  測資        判定    耗時     CPU      最佳解
+  ✗     測資1       RE      0.02s    0.00s    ✗
+  ✗     測資2       RE      0.02s    0.00s    ✗
+  ✗     測資3       RE      0.02s    0.00s    ✗
+  ✗     測資4       RE      0.02s    0.00s    ✗
+  ✗     測資5       RE      0.02s    0.00s    ✗
+  ✗     測資6       RE      0.02s    0.00s    ✗
+
+=== 自我檢測結果 ===
+  main_greedy.py (greedy)          0/6  未全過
+
+====gpt
+
 jovyan@vm-j4wlboxamd59:~$ ./run_test.sh greedy.py D0000000.in 8 D0000000.out 
 執行 greedy.py  測資 D0000000.in  限制 8s
 → 完成，耗時 1.89s ✅
