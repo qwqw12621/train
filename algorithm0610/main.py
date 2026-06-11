@@ -63,3 +63,45 @@ jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux backtrack.py
 
 === 自我檢測結果 ===
   backtrack.py (backtrack)         6/6  通過
+bnb==================
+
+jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux bnb.py
+請選擇要以哪種方法評分：
+  1) greedy
+  2) backtrack
+  3) bnb
+  4) dp
+輸入編號 [1-4]：3
+下載 bnb 測資 [████████████████████████████] 100%  6/6
+
+=== bnb.py (bnb) ===
+  狀態  測資        判定    耗時     CPU      最佳解
+  ✓     測資1       AC      0.02s    0.00s    ✓
+  ✓     測資2       AC      0.02s    0.00s    ✓
+  ✓     測資3       AC      0.49s    0.48s    ✓
+  ✓     測資4       AC      0.45s    0.43s    ✓
+  ✓     測資5       AC      0.12s    0.10s    ✓
+  ✓     測資6       AC      0.34s    0.31s    ✓
+
+=== 自我檢測結果 ===
+  bnb.py (bnb)                     6/6  通過
+jovyan@vm-ccxr6vrx7vcx:~$ ./judge_student_linux bnb_v2.py
+請選擇要以哪種方法評分：
+  1) greedy
+  2) backtrack
+  3) bnb
+  4) dp
+輸入編號 [1-4]：3
+下載 bnb 測資 [████████████████████████████] 100%  6/6
+
+=== bnb_v2.py (bnb) ===
+  狀態  測資        判定    耗時     CPU      最佳解
+  ✓     測資1       AC      0.03s    0.02s    ✓
+  ✓     測資2       AC      0.02s    0.00s    ✓
+  ✓     測資3       AC      0.42s    0.39s    ✓
+  ✓     測資4       AC      0.40s    0.38s    ✓
+  ✓     測資5       AC      0.12s    0.10s    ✓
+  ✓     測資6       AC      0.29s    0.27s    ✓
+
+=== 自我檢測結果 ===
+  bnb_v2.py (bnb)                  6/6  通過
