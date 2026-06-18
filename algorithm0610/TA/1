@@ -1,1 +1,5 @@
-
+jovyan@vm-j4wlboxamd59:~/dp/v2$ bash run_dp_test.sh dp_v2.py 8
+測資: D_dp.in   時間限制: 8s
+run_dp_test.sh: line 11: bc: command not found
+耗時: 0.000s  (限制 8s)
+合法:True 宣告獎勵:6616 實際:6616 路徑時間:1946/2000 走訪:13/21 | 達最佳解(6616) ✓
